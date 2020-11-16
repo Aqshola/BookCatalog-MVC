@@ -14,4 +14,9 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("pages/index");
 });
+
+app.get("/admin", (req, res) => {
+  res.render("pages/dashboard");
+});
+
 app.listen(5000, console.log("server started"));
