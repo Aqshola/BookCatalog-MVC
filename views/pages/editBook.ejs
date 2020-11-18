@@ -48,40 +48,61 @@
 
   <body>
     <div class="container">
-      <!-- <div class="row mt-5">
-        <div class="alert alert-danger col-md-7" role="alert">
-          A simple danger alert—check it out!
+      <div class="row mt-3">
+        <div class="col-md-7">
+          <h2>Edit Book</h2>
         </div>
-      </div> -->
-      <div class="row">
-        <h2>Book List</h2>
       </div>
-      <div class="row mt-5">
-        <a type="button" href="/admin/add-book" class="btn btn-outline-primary">
-          Add new Book
-        </a>
-      </div>
+      <div class="row mt-4">
+        <div class="col-md-7">
+          <form>
+            <div class="form-group">
+              <label for="bookTitle">Book Title</label>
+              <input
+                class="form-control"
+                id="bookTitle"
+                placeholder="Book Title"
+                value="data-value"
+              />
+            </div>
 
-      <div class="row">
-        <table class="table col-md-7 mt-3 border">
-          <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Title</th>
-              <th scope="col">Type</th>
-              <th scope="col">Price</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% books.forEach((book,indeks) => { %> <%- include
-            ("../partials/bookRow.ejs",{book:book, indeks:indeks+1}) %> <% }) %>
-          </tbody>
-        </table>
+            <div class="form-group">
+              <label for="bookPrice">Book price</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="bookPricePrepend">Rp</span>
+                </div>
+                <input
+                  class="form-control"
+                  id="bookPrice"
+                  placeholder="00000"
+                  value="data-value"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="BookSynopsis">Book Synopsis</label>
+              <textarea class="form-control" id="BookSynopsis" rows="3">
+lalalala</textarea
+              >
+            </div>
+            <a
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              href="/admin"
+            >
+              Back
+            </a>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">
+              Save changes
+            </button>
+          </form>
+        </div>
       </div>
     </div>
 
+    <script src="/script.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

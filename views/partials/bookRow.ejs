@@ -1,0 +1,12 @@
+<tr>
+  <th><%- indeks%></th>
+  <td><%- book.title%></td>
+  <td><%- book.type %></td>
+  <td><%- book.price %></td>
+  <td>
+    <a class="btn btn-primary" href="/admin/edit-book/id"> Edit </a>
+  </td>
+  <td>
+    <button data-id="<%- book._id %>" class="btn btn-danger">Delete</button>
+  </td>
+</tr>
