@@ -4,6 +4,8 @@ const {
   getAddBook,
   getEditBook,
   PostAddBook,
+  removeBook,
+  PostEditBook,
 } = require("../controller/admin");
 const router = express.Router();
 
@@ -14,6 +16,11 @@ router.get("/add-book", getAddBook);
 
 router.get("/edit-book/:id", getEditBook);
 
+// router.post("/add-book", PostAddBook);
 router.post("/add-book", PostAddBook);
+
+router.post("/remove-book/:id", removeBook);
+
+router.post("/edit-book/:id", PostEditBook);
 
 module.exports = router;

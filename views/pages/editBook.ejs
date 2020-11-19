@@ -55,14 +55,25 @@
       </div>
       <div class="row mt-4">
         <div class="col-md-7">
-          <form>
+          <form method="POST" action="/admin/edit-book/<%- book._id %> ">
             <div class="form-group">
               <label for="bookTitle">Book Title</label>
               <input
                 class="form-control"
                 id="bookTitle"
                 placeholder="Book Title"
-                value="data-value"
+                value="<%- book.title %> "
+                name="title"
+              />
+            </div>
+            <div class="form-group">
+              <label for="bookType">Book Type</label>
+              <input
+                class="form-control"
+                id="bookType"
+                placeholder="Book Type"
+                value="<%- book.type %> "
+                name="type"
               />
             </div>
 
@@ -76,14 +87,20 @@
                   class="form-control"
                   id="bookPrice"
                   placeholder="00000"
-                  value="data-value"
+                  value="<%- book.price %> "
+                  name="price"
                 />
               </div>
             </div>
             <div class="form-group">
               <label for="BookSynopsis">Book Synopsis</label>
-              <textarea class="form-control" id="BookSynopsis" rows="3">
-lalalala</textarea
+              <textarea
+                class="form-control"
+                id="BookSynopsis"
+                rows="3"
+                name="synopsis"
+              >
+<%- book.synopsis %></textarea
               >
             </div>
             <a
@@ -94,9 +111,7 @@ lalalala</textarea
             >
               Back
             </a>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">
-              Save changes
-            </button>
+            <button class="btn btn-primary" type="submit">Save changes</button>
           </form>
         </div>
       </div>

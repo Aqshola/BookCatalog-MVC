@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const connectDb = require("./config/db");
 const bodyParser = require("body-parser");
-
+const cors = require("cors");
 const admin = require("./routes/admin");
 const home = require("./routes/home");
 const flash = require("./middleware/FlashMessage");
@@ -16,6 +16,7 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(cors());
 
 connectDb();
 
