@@ -15,7 +15,6 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-
     <title>Catalog</title>
   </head>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -45,13 +44,19 @@
       </ul>
     </div>
   </nav>
-
   <body>
     <div class="container">
-      <h1 class="text-center mt-3">Book Catalog</h1>
-      <div class="row">
-        <% books.forEach(book => { %> <%-
-        include("../partials/bookCard.ejs",{book:book}) %> <% }) %>
+      <div class="mt-5">
+        <h2 class="mb-4"><%- book.title %></h2>
+        <h3 class="mb-4"><%- book.type %></h3>
+        <h5 class="mb-4">Rp <%- book.price %></h4>
+        <% if(book.synopsis == ''){ %>
+          <p>No Synopsis</p> 
+          <% } else{ %>  
+            <p>
+              <%- book.synopsis %> 
+            </p>
+          <% } %>
       </div>
     </div>
     <script
