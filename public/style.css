@@ -1,0 +1,13 @@
+.upnav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .dasnav {
+    display: none;
+  }
+
+  .upnav {
+    display: flex;
+  }
+}

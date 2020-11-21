@@ -8,7 +8,6 @@ const getBookHome = async (req, res) => {
 
 const getBookDetail = async (req, res) => {
   const book = await Book.findById(req.params.id);
-
   res.render("pages/detailBook", { book: book });
 };
 

@@ -15,10 +15,10 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-
+    <link rel="stylesheet" href="style.css" />
     <title>Catalog</title>
   </head>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-light bg-light upnav">
     <a class="navbar-brand" href="#">Book</a>
     <button
       class="navbar-toggler"
@@ -34,67 +34,94 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="/"
-            >Home <span class="sr-only">(current)</span></a
+            >Dashboard <span class="sr-only">(current)</span></a
           >
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" href="/admin">Admin</a>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Category</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Account</a>
         </li>
       </ul>
     </div>
   </nav>
-
   <body>
-    <div class="container">
-      <div class="row mt-5">
-        <% if (message) { %>
-        <div
-          class="alert alert-<%- message.type %> col-md-7"
-          role="alert"
-          id="alert"
-        >
-          <%- message.message %>
+    <div class="container-fluid" style="min-height: 100vh">
+      <div class="row" style="min-height: 100vh">
+        <div class="col-md-3 bg-light p-5 dasnav">
+          <h3 class="mt-5">Admin</h3>
+          <ul class="nav flex-column nav-pills mt-5">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Account</a>
+            </li>
+          </ul>
         </div>
-        <% } %>
-      </div>
+        <div class="p-5">
+          <div class="row">
+            <% if (message) { %>
+            <div
+              class="alert alert-<%- message.type %> col-md-7"
+              role="alert"
+              id="alert"
+            >
+              <%- message.message %>
+            </div>
+            <% } %>
+          </div>
 
-      <div class="row">
-        <h2>Book List</h2>
-      </div>
-      <div class="row mt-5">
-        <a type="button" href="/admin/add-book" class="btn btn-outline-primary">
-          Add new Book
-        </a>
-      </div>
+          <div class="row">
+            <h2>Book List</h2>
+          </div>
+          <div class="row mt-5">
+            <a
+              type="button"
+              href="/admin/add-book"
+              class="btn btn-outline-primary"
+            >
+              Add new Book
+            </a>
+          </div>
 
-      <div class="row">
-        <table class="table col-md-7 mt-3 border">
-          <thead>
-            <tr>
-              <th scope="col">No</th>
-              <th scope="col">Title</th>
-              <th scope="col">Type</th>
-              <th scope="col">Price</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% books.forEach((book,indeks) => { %> <%- include
-            ("../partials/bookRow.ejs",{book:book, indeks:indeks+1}) %> <% }) %>
-          </tbody>
-        </table>
+          <div class="row">
+            <table class="table col-md-7 mt-3 border">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Type</th>
+                  <th scope="col">Price</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% books.forEach((book,indeks) => { %> <%- include
+                ("../partials/bookRow.ejs",{book:book, indeks:indeks+1}) %> <%
+                }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 
     <script>
       let displayAlert = document.querySelector("#alert");
-
       setTimeout(() => {
         displayAlert.style.display = "none";
       }, 2500);
+      if (window.innerWidth < 700) {
+        document.querySelector(".dasnav").style.display = "none";
+      }
     </script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
