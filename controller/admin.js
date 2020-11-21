@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const Category = require("../models/category");
 
 const getBookAdmin = async (req, res) => {
   try {
@@ -9,8 +10,11 @@ const getBookAdmin = async (req, res) => {
   }
 };
 
-const getAddBook = (req, res) => {
-  res.render("pages/admin/addBook");
+const getAddBook = async (req, res) => {
+  try {
+    const categories = await Category.find().sort({ category: -1 });
+    res.render("pages/admin/addBook", { categories: categories });
+  } catch (err) {}
 };
 
 const getEditBook = async (req, res) => {
@@ -20,6 +24,13 @@ const getEditBook = async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+const getCategoryAdmin = async (req, res) => {
+  try {
+    const categories = await Category.find().sort({ category: -1 });
+    res.render("pages/admin/category", { categories: categories });
+  } catch (err) {}
 };
 
 const PostAddBook = async (req, res) => {
@@ -45,6 +56,33 @@ const PostAddBook = async (req, res) => {
       type: "danger",
     };
     return res.redirect("/admin/add-book");
+  }
+};
+
+const PostAddCategory = async (req, res) => {
+  const capitalizeFirstLetter = (string) =>
+    string.charAt(0).toUpperCase() + string.slice(1);
+
+  try {
+    const { category } = req.body;
+
+    const newCategory = new Category({
+      category: capitalizeFirstLetter(category),
+    });
+
+    await newCategory.save();
+
+    req.session.message = {
+      message: "Added new Category",
+      type: "success",
+    };
+    return res.redirect("/admin/category");
+  } catch (err) {
+    req.session.message = {
+      message: "category cannot empty",
+      type: "danger",
+    };
+    return res.redirect("/admin/category");
   }
 };
 
@@ -84,11 +122,28 @@ const removeBook = async (req, res) => {
   }
 };
 
+const removeCategory = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Category.findByIdAndDelete(id);
+    req.session.message = {
+      message: "Delete Category",
+      type: "success",
+    };
+    return res.redirect("/admin/category");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   getBookAdmin,
   getAddBook,
   getEditBook,
+  getCategoryAdmin,
   PostAddBook,
   PostEditBook,
+  PostAddCategory,
   removeBook,
+  removeCategory,
 };

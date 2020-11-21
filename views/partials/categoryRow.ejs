@@ -1,0 +1,8 @@
+<tr>
+  <td><%- category.category%></td>
+  <td>
+    <form method="POST" action="/admin/remove-category/<%- category._id %> ">
+      <button type="submit" class="btn btn-danger delbtn">Delete</button>
+    </form>
+  </td>
+</tr>
