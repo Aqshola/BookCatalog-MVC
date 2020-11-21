@@ -6,7 +6,6 @@ const cors = require("cors");
 const admin = require("./routes/admin");
 const home = require("./routes/home");
 const flash = require("./middleware/FlashMessage");
-const path = require("path");
 
 const app = express();
 app.use(
@@ -20,8 +19,6 @@ app.use(
 app.use(cors());
 
 connectDb();
-
-console.log(path.join(__dirname), "viewspages");
 
 app.use(
   session({

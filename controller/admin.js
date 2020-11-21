@@ -3,20 +3,20 @@ const Book = require("../models/book");
 const getBookAdmin = async (req, res) => {
   try {
     const books = await Book.find().sort({ date: -1 });
-    res.render("pages/dashboard", { books: books });
+    res.render("pages/admin/dashboard", { books: books });
   } catch (err) {
     console.log(err);
   }
 };
 
 const getAddBook = (req, res) => {
-  res.render("pages/addBook");
+  res.render("pages/admin/addBook");
 };
 
 const getEditBook = async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
-    res.render("pages/editBook", { book: book });
+    res.render("pages/admin/editBook", { book: book });
   } catch (err) {
     console.log(err);
   }

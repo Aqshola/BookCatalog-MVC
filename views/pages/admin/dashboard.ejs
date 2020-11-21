@@ -105,8 +105,8 @@
               </thead>
               <tbody>
                 <% books.forEach((book,indeks) => { %> <%- include
-                ("../partials/bookRow.ejs",{book:book, indeks:indeks+1}) %> <%
-                }) %>
+                ("../../partials/bookRow.ejs",{book:book, indeks:indeks+1}) %>
+                <% }) %>
               </tbody>
             </table>
           </div>
