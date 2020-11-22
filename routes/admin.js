@@ -1,4 +1,6 @@
 const express = require("express");
+const Multer = require("../middleware/Multer");
+
 const {
   getBookAdmin,
   getAddBook,
@@ -21,8 +23,7 @@ router.get("/edit-book/:id", getEditBook);
 
 router.get("/category", getCategoryAdmin);
 
-// router.post("/add-book", PostAddBook);
-router.post("/add-book", PostAddBook);
+router.post("/add-book", Multer, PostAddBook);
 
 router.post("/remove-book/:id", removeBook);
 

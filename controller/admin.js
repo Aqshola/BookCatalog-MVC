@@ -37,10 +37,11 @@ const PostAddBook = async (req, res) => {
   try {
     const { title, type, price, synopsis } = req.body;
     const newBook = new Book({
-      title,
-      type,
-      price,
-      synopsis,
+      title: title,
+      type: type,
+      price: price,
+      synopsis: synopsis,
+      coverImg: req.file.path,
     });
 
     await newBook.save();
