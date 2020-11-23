@@ -13,7 +13,7 @@ const getBookAdmin = async (req, res) => {
 
 const getAddBook = async (req, res) => {
   try {
-    const categories = await Category.find().sort({ category: -1 });
+    const categories = await Category.find().sort({ category: 1 });
     res.render("pages/admin/addBook", { categories: categories });
   } catch (err) {}
 };
@@ -29,7 +29,7 @@ const getEditBook = async (req, res) => {
 
 const getCategoryAdmin = async (req, res) => {
   try {
-    const categories = await Category.find().sort({ category: -1 });
+    const categories = await Category.find().sort({ category: 1 });
     res.render("pages/admin/category", { categories: categories });
   } catch (err) {}
 };
