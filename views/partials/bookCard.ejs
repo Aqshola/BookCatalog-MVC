@@ -1,4 +1,18 @@
 <div class="col-md-3 my-3">
+  <% if (book.coverImg) { %>
+  <div class="wrapper">
+    <img class="card-img-top" src="/<%- book.coverImg %> " alt="bookCover" />
+  </div>
+  <% } else{ %>
+  <div class="wrapper">
+    <img
+      class="card-img-top"
+      alt="bookCover"
+      src="https://dummyimage.com/600x400/dbdbdb/fff.jpg&text=No+image"
+    />
+  </div>
+
+  <% } %>
   <div class="card">
     <div class="card-body">
       <h5 class="card-title"><%- book.title %></h5>

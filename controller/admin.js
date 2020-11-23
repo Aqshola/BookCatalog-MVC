@@ -1,5 +1,6 @@
 const Book = require("../models/book");
 const Category = require("../models/category");
+const fs = require("fs");
 
 const getBookAdmin = async (req, res) => {
   try {
@@ -41,7 +42,7 @@ const PostAddBook = async (req, res) => {
       type: type,
       price: price,
       synopsis: synopsis,
-      coverImg: req.file.path,
+      coverImg: req.file ? req.file.path : "",
     });
 
     await newBook.save();
@@ -52,6 +53,7 @@ const PostAddBook = async (req, res) => {
     };
     return res.redirect("/admin/add-book");
   } catch (err) {
+    console.log(err);
     req.session.message = {
       message: "Title, type and price cannot empty",
       type: "danger",
@@ -112,6 +114,11 @@ const PostEditBook = async (req, res) => {
 const removeBook = async (req, res) => {
   try {
     const id = req.params.id;
+    const book = await Book.findById(req.params.id).select("coverImg");
+
+    if (book.coverImg) {
+      fs.unlinkSync(book.coverImg);
+    }
     await Book.findByIdAndDelete(id);
     req.session.message = {
       message: "Delete Book",
