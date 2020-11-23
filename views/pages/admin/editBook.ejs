@@ -15,7 +15,7 @@
       integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
       crossorigin="anonymous"
     />
-
+    <link rel="stylesheet" href="/style.css" />
     <title>Catalog</title>
   </head>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -56,6 +56,24 @@
       <div class="row mt-4">
         <div class="col-md-7">
           <form method="POST" action="/admin/edit-book/<%- book._id %> ">
+            <div>
+              <div class="pre-wrap card-img-top">
+                <img
+                  alt="previewImage"
+                  id="preview"
+                  src="/<%- book.coverImg %>"
+                />
+              </div>
+              <div class="form-group">
+                <label for="inputFile">Update Cover</label>
+                <input
+                  type="file"
+                  class="form-control-file"
+                  name="bookCover"
+                  id="inputFile"
+                />
+              </div>
+            </div>
             <div class="form-group">
               <label for="bookTitle">Book Title</label>
               <input

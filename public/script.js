@@ -1,10 +1,14 @@
 let inputNum = document.getElementById("bookPrice");
 let displayAlert = document.querySelector("#alert");
 let inputFile = document.querySelector("#inputFile");
+const prebox = document.querySelector(".pre-wrap");
+const preview = document.querySelector("#preview");
+
+if (preview.src) {
+  prebox.style.display = "flex";
+}
 
 inputFile.addEventListener("change", (e) => {
-  const preview = document.querySelector("#preview");
-  const prebox = document.querySelector(".pre-wrap");
   let uri = URL.createObjectURL(e.target.files[0]);
 
   preview.setAttribute("src", uri);
