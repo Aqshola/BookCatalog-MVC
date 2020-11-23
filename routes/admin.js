@@ -27,7 +27,7 @@ router.post("/add-book", Multer, PostAddBook);
 
 router.post("/remove-book/:id", removeBook);
 
-router.post("/edit-book/:id", PostEditBook);
+router.post("/edit-book/:id", Multer, PostEditBook);
 
 router.post("/category", PostAddCategory);
 

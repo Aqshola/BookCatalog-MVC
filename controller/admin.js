@@ -21,7 +21,8 @@ const getAddBook = async (req, res) => {
 const getEditBook = async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
-    res.render("pages/admin/editBook", { book: book });
+    const categories = await Category.find().sort({ category: 1 });
+    res.render("pages/admin/editBook", { book: book, categories: categories });
   } catch (err) {
     console.log(err);
   }
@@ -91,16 +92,22 @@ const PostAddCategory = async (req, res) => {
 
 const PostEditBook = async (req, res) => {
   const { title, price, type, synopsis } = req.body;
-  const id = req.params.id;
 
   try {
+    const book = await Book.findById(req.params.id);
+
+    if (book.coverImg) {
+      fs.unlinkSync(book.coverImg);
+    }
+
     const bookData = {
-      title,
-      price,
-      type,
-      synopsis,
+      title: title,
+      price: price,
+      type: type,
+      synopsis: synopsis,
+      coverImg: req.file ? req.file.path : "",
     };
-    await Book.findByIdAndUpdate(id, bookData, { useFindAndModify: false });
+    await book.update(bookData, { useFindAndModify: false });
     req.session.message = {
       message: "Edit Book Success",
       type: "success",

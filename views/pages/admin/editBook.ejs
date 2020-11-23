@@ -55,14 +55,17 @@
       </div>
       <div class="row mt-4">
         <div class="col-md-7">
-          <form method="POST" action="/admin/edit-book/<%- book._id %> ">
+          <form
+            method="POST"
+            action="/admin/edit-book/<%- book._id %>"
+            enctype="multipart/form-data"
+          >
             <div>
               <div class="pre-wrap card-img-top">
-                <img
-                  alt="previewImage"
-                  id="preview"
-                  src="/<%- book.coverImg %>"
-                />
+                <img alt="previewImage" id="preview" src="<%- book.coverImg?
+                "/"+book.coverImg:
+                "https://dummyimage.com/600x400/dbdbdb/fff.jpg&text=No+image"
+                %>" />
               </div>
               <div class="form-group">
                 <label for="inputFile">Update Cover</label>
@@ -74,25 +77,31 @@
                 />
               </div>
             </div>
+
             <div class="form-group">
               <label for="bookTitle">Book Title</label>
               <input
                 class="form-control"
                 id="bookTitle"
                 placeholder="Book Title"
-                value="<%- book.title %> "
                 name="title"
+                value="<%- book.title %> "
               />
             </div>
             <div class="form-group">
               <label for="bookType">Book Type</label>
-              <input
-                class="form-control"
-                id="bookType"
-                placeholder="Book Type"
-                value="<%- book.type %> "
-                name="type"
-              />
+              <select class="form-control" id="bookType" name="type">
+                <% categories.forEach(category => { %> <% if(category.category
+                == book.type){ %>
+                <option value="<%- category.category %>" selected>
+                  <%- category.category %>
+                </option>
+                <% } else{ %>
+                <option value="<%- category.category %>">
+                  <%- category.category %>
+                </option>
+                <% } %> <% }) %>
+              </select>
             </div>
 
             <div class="form-group">
@@ -105,8 +114,8 @@
                   class="form-control"
                   id="bookPrice"
                   placeholder="00000"
-                  value="<%- book.price %> "
                   name="price"
+                  value="<%- book.price %> "
                 />
               </div>
             </div>
@@ -118,8 +127,8 @@
                 rows="3"
                 name="synopsis"
               >
-<%- book.synopsis %></textarea
-              >
+<%-book.synopsis%>
+              </textarea>
             </div>
             <a
               type="button"
@@ -129,7 +138,7 @@
             >
               Back
             </a>
-            <button class="btn btn-primary" type="submit">Save changes</button>
+            <button class="btn btn-primary" type="submit">Add Book</button>
           </form>
         </div>
       </div>
