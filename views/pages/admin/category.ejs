@@ -51,18 +51,18 @@
   <body>
     <div class="container-fluid" style="min-height: 100vh">
       <div class="row" style="min-height: 100vh">
-        <div class="col-md-3 bg-light p-5 dasnav">
-          <a class="mt-2 color-dark" href="/">Back to home</a>
-          <h3 class="mt-5">Admin</h3>
-          <ul class="nav flex-column mt-5">
+        <div class="col-md-3 p-5 dasnav navbar-dark bg-primary">
+          <a class="mt-2 text-white" href="/">Back to home</a>
+          <h2 class="mt-5 text-white font-weight-bold">Admin</h2>
+          <ul class="navbar-nav flex-column mt-5">
             <li class="nav-item">
-              <a class="nav-link" href="/admin">Dashboard</a>
-            </li>
-            <li class="nav-item nav-pills">
-              <a class="nav-link active" href="/admin/category">Category</a>
+              <a class="nav-link h5" href="/admin">Dashboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/admin/account">Account</a>
+              <a class="nav-link active h5" href="/admin/category">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link h5" href="/admin/account">Account</a>
             </li>
           </ul>
         </div>
@@ -70,7 +70,7 @@
           <div class="row">
             <% if (message) { %>
             <div
-              class="alert alert-<%- message.type %> col-md-7"
+              class="alert bg-<%- message.type %> col-md-7"
               role="alert"
               id="alert"
             >

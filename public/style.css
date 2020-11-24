@@ -1,6 +1,12 @@
 .upnav {
   display: none;
 }
+
+.dasnav {
+  border: none;
+  outline: none;
+}
+
 .wrapper {
   position: relative;
   overflow: hidden;
@@ -15,6 +21,7 @@
 .wrapper img {
   width: 100%;
   max-width: none;
+  height: 100%;
   position: absolute;
   left: 50%;
   top: 0;
