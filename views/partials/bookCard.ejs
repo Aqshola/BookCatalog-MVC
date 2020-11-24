@@ -1,4 +1,4 @@
-<div class="col-md-3 my-3">
+<div class="col-sm-2 my-3 shadow-sm mx-3 p-2 rounded">
   <% if (book.coverImg) { %>
   <div class="wrapper">
     <img class="card-img-top" src="/<%- book.coverImg %> " alt="bookCover" />
@@ -13,12 +13,12 @@
   </div>
 
   <% } %>
-  <div class="card">
+  <div class="card border-0">
     <div class="card-body">
       <h5 class="card-title"><%- book.title %></h5>
       <h6 class="card-subtitle mb-2 text-muted"><%- book.type %></h6>
       <p class="card-text"><%- book.price %></p>
-      <a href="/book/<%- book._id %> " class="btn btn-primary">Detail</a>
+      <a href="/book/<%- book._id %> " class="btn btn-primary btn-sm">Detail</a>
     </div>
   </div>
 </div>
