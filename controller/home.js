@@ -11,7 +11,16 @@ const getBookDetail = async (req, res) => {
   res.render("pages/home/detailBook", { book: book });
 };
 
+const getBookSearch = async (req, res) => {
+  const { title } = req.query;
+  const books = await Book.find().where({ title: new RegExp(title, "i") });
+
+  console.log(books);
+  res.render("pages/home/index", { books: books });
+};
+
 module.exports = {
   getBookHome,
   getBookDetail,
+  getBookSearch,
 };
