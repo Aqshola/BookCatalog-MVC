@@ -96,8 +96,12 @@ const PostEditBook = async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
 
-    if (book.coverImg) {
-      fs.unlinkSync(book.coverImg);
+    if (req.file) {
+      if (book.coverImg) {
+        if (fs.existsSync(book.coverImg)) {
+          fs.unlinkSync(book.coverImg);
+        }
+      }
     }
 
     const bookData = {
@@ -105,7 +109,7 @@ const PostEditBook = async (req, res) => {
       price: price,
       type: type,
       synopsis: synopsis,
-      coverImg: req.file ? req.file.path : "",
+      coverImg: req.file ? req.file.path : book.coverImg,
     };
     await book.update(bookData, { useFindAndModify: false });
     req.session.message = {
@@ -124,7 +128,9 @@ const removeBook = async (req, res) => {
     const book = await Book.findById(req.params.id).select("coverImg");
 
     if (book.coverImg) {
-      fs.unlinkSync(book.coverImg);
+      if (fs.existsSync(book.coverImg)) {
+        fs.unlinkSync(book.coverImg);
+      }
     }
     await Book.findByIdAndDelete(id);
     req.session.message = {
