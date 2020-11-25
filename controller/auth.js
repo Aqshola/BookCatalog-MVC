@@ -17,19 +17,18 @@ const postLogin = async (req, res) => {
       };
 
       req.session.loggedIn = false;
-      res.redirect("/login");
+      res.redirect("/auth/login");
     } else {
       if (password === user.password) {
         req.session.loggedIn = true;
         res.redirect("/admin");
       } else {
         req.session.loggedIn = false;
-        res.redirect("/login");
-
         req.session.message = {
           message: "Invalid Credential",
           type: "danger",
         };
+        res.redirect("/auth/login");
       }
     }
   } catch (err) {
@@ -37,7 +36,13 @@ const postLogin = async (req, res) => {
   }
 };
 
+const Logout = async (req, res) => {
+  req.session.loggedIn = false;
+  res.redirect("/auth/login");
+};
+
 module.exports = {
   getLogin,
+  Logout,
   postLogin,
 };

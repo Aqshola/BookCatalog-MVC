@@ -12,13 +12,22 @@ const getBookDetail = async (req, res) => {
 };
 
 const getBookSearch = async (req, res) => {
-  const { title } = req.query;
-  const books = await Book.find().where({ title: new RegExp(title, "i") });
+  try {
+    const { title } = req.query;
 
-  res.render("pages/home/index", {
-    books: books,
-    pagetitle: `Search result ${books.length} found`,
-  });
+    if (title === "" || title === " ") {
+      return res.redirect("/");
+    } else {
+      const books = await Book.find().where({ title: new RegExp(title, "i") });
+
+      return res.render("pages/home/index", {
+        books: books,
+        pagetitle: `Search result ${books.length} found`,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = {
