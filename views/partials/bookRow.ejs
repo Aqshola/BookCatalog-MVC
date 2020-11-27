@@ -2,7 +2,10 @@
   <th><%- indeks%></th>
   <td><%- book.title%></td>
   <td><%- book.type %></td>
-  <td><%- book.price %></td>
+  <td>
+    <%- new Intl.NumberFormat("EN", { style: "currency", currency: "IDR", })
+    .format(book.price) .replace("IDR", "Rp") .replace(".00", ""); %>
+  </td>
   <td>
     <a class="btn btn-primary" href="/admin/edit-book/<%- book._id %>">
       Edit

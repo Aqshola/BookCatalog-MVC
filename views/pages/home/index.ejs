@@ -61,6 +61,18 @@
         <% } %>
       </div>
     </div>
+    <script>
+      const prices = document.querySelectorAll(".price");
+      prices.forEach((price) => {
+        price.innerHTML = new Intl.NumberFormat("EN", {
+          style: "currency",
+          currency: "IDR",
+        })
+          .format(Number(price.textContent))
+          .replace("IDR", "Rp")
+          .replace(".00", "");
+      });
+    </script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
