@@ -10,6 +10,11 @@ const fileFilter = (req, file, cb) => {
   ) {
     cb(null, true);
   } else {
+    req.session.message = {
+      message: "Wrong file type for cover",
+      type: "danger",
+    };
+    req.session.failed = true;
     cb(null, false);
   }
 };

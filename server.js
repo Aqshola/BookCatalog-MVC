@@ -8,8 +8,10 @@ const admin = require("./routes/admin");
 const home = require("./routes/home");
 const login = require("./routes/auth");
 const notFound = require("./routes/404");
+const dotenv = require("dotenv");
 
 const app = express();
+dotenv.config();
 app.use(cors());
 
 //init database//

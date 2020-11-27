@@ -37,22 +37,26 @@ const getCategoryAdmin = async (req, res) => {
 
 const PostAddBook = async (req, res) => {
   try {
-    const { title, type, price, synopsis } = req.body;
-    const newBook = new Book({
-      title: title,
-      type: type,
-      price: price,
-      synopsis: synopsis,
-      coverImg: req.file ? req.file.path : "",
-    });
+    if (req.session.failed) {
+      return res.redirect(req.originalUrl);
+    } else {
+      const { title, type, price, synopsis } = req.body;
 
-    await newBook.save();
+      const newBook = new Book({
+        title: title,
+        type: type,
+        price: price,
+        synopsis: synopsis,
+        coverImg: req.file ? req.file.path : "",
+      });
 
-    req.session.message = {
-      message: "Added New Book",
-      type: "success",
-    };
-    return res.redirect("/admin/add-book");
+      await newBook.save();
+      req.session.message = {
+        message: "Added New Book",
+        type: "success",
+      };
+      return res.redirect("/admin/add-book");
+    }
   } catch (err) {
     console.log(err);
     req.session.message = {
@@ -92,31 +96,36 @@ const PostAddCategory = async (req, res) => {
 
 const PostEditBook = async (req, res) => {
   const { title, price, type, synopsis } = req.body;
+  console.log(req.session.failed);
 
   try {
     const book = await Book.findById(req.params.id);
 
-    if (req.file) {
-      if (book.coverImg) {
-        if (fs.existsSync(book.coverImg)) {
-          fs.unlinkSync(book.coverImg);
+    if (req.session.failed) {
+      return res.redirect(req.originalUrl);
+    } else {
+      if (req.file) {
+        if (book.coverImg) {
+          if (fs.existsSync(book.coverImg)) {
+            fs.unlinkSync(book.coverImg);
+          }
         }
       }
-    }
 
-    const bookData = {
-      title: title,
-      price: price,
-      type: type,
-      synopsis: synopsis,
-      coverImg: req.file ? req.file.path : book.coverImg,
-    };
-    await book.update(bookData, { useFindAndModify: false });
-    req.session.message = {
-      message: "Edit Book Success",
-      type: "success",
-    };
-    res.redirect(`/admin`);
+      const bookData = {
+        title: title,
+        price: price,
+        type: type,
+        synopsis: synopsis,
+        coverImg: req.file ? req.file.path : book.coverImg,
+      };
+      await book.update(bookData, { useFindAndModify: false });
+      req.session.message = {
+        message: "Edit Book Success",
+        type: "success",
+      };
+      return res.redirect(`/admin`);
+    }
   } catch (err) {
     console.log(err);
   }

@@ -48,6 +48,17 @@
         </div>
         <div class="p-5 col-md-9">
           <div class="row">
+            <% if (message) { %>
+            <div
+              class="alert alert-<%- message.type %> col-md-7"
+              role="alert"
+              id="alert"
+            >
+              <%- message.message %>
+            </div>
+            <% } %>
+          </div>
+          <div class="row">
             <div class="col-md-7">
               <h2>Edit Book</h2>
             </div>
