@@ -12,7 +12,7 @@ const postLogin = async (req, res) => {
 
     if (!user) {
       req.session.message = {
-        message: "Invalid Credential",
+        message: "No User",
         type: "danger",
       };
 
