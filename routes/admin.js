@@ -24,14 +24,14 @@ router.get("/edit-book/:id", Auth, getEditBook);
 
 router.get("/category", Auth, getCategoryAdmin);
 
-router.post("/add-book", Multer, PostAddBook);
+router.post("/add-book", [Multer, Auth], PostAddBook);
 
 router.post("/remove-book/:id", Auth, removeBook);
 
-router.post("/edit-book/:id", Multer, PostEditBook);
+router.post("/edit-book/:id", [Multer, Auth], PostEditBook);
 
 router.post("/category", PostAddCategory);
 
-router.post("/remove-category/:id", removeCategory);
+router.post("/remove-category/:id", Auth, removeCategory);
 
 module.exports = router;

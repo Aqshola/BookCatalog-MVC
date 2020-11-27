@@ -1,6 +1,11 @@
+const fs = require("fs");
+
 const config = {
   storageConfig: {
     destination: (req, file, cb) => {
+      if (!fs.existsSync("uploads")) {
+        fs.mkdirSync("uploads");
+      }
       cb(null, "uploads/");
     },
 

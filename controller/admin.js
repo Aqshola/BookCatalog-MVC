@@ -59,6 +59,9 @@ const PostAddBook = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
+    if (req.file) {
+      fs.unlinkSync(req.file.path);
+    }
     req.session.message = {
       message: "Title, type and price cannot empty",
       type: "danger",
