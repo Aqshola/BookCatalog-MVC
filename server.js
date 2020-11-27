@@ -9,6 +9,7 @@ const home = require("./routes/home");
 const login = require("./routes/auth");
 const notFound = require("./routes/404");
 const dotenv = require("dotenv");
+const PORT = process.env.PORT || 5000;
 
 const app = express();
 dotenv.config();
@@ -39,4 +40,4 @@ app.use("/auth", login);
 app.use("/admin", admin);
 app.use("*", notFound);
 
-app.listen(5000, console.log("server started"));
+app.listen(PORT, console.log("server started"));
