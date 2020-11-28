@@ -44,6 +44,8 @@ const PostAddBook = async (req, res) => {
         folder: "uploads",
       });
 
+      const { title, type, price, synopsis } = req.body;
+
       const newBook = new Book({
         title: title,
         type: type,

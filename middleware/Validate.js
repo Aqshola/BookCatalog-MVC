@@ -1,5 +1,4 @@
 const Validation = (req, res, next) => {
-  console.log(req.body);
   const { title, price } = req.body;
 
   if (
