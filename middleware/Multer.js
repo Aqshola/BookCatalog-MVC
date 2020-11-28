@@ -1,7 +1,5 @@
 const multer = require("multer");
-const multerConfig = require("../config/multerConfig");
-
-const storage = multer.diskStorage(multerConfig.storageConfig);
+const storage = multer.diskStorage({});
 const fileFilter = (req, file, cb) => {
   if (
     file.mimetype === "image/jpeg" ||

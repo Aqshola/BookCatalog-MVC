@@ -1,6 +1,6 @@
 const Book = require("../models/book");
 const Category = require("../models/category");
-const fs = require("fs");
+const imgCloud = require("../config/cloudinary");
 
 const getBookAdmin = async (req, res) => {
   try {
@@ -40,14 +40,17 @@ const PostAddBook = async (req, res) => {
     if (req.session.failed) {
       return res.redirect(req.originalUrl);
     } else {
-      const { title, type, price, synopsis } = req.body;
+      const result = await imgCloud.uploader.upload(req.file.path, {
+        folder: "uploads",
+      });
 
       const newBook = new Book({
         title: title,
         type: type,
         price: price,
         synopsis: synopsis,
-        coverImg: req.file ? req.file.path : "",
+        coverId: req.file ? result.public_id : "",
+        coverImg: req.file ? result.url : "",
       });
 
       await newBook.save();
@@ -59,14 +62,6 @@ const PostAddBook = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    if (req.file) {
-      fs.unlinkSync(req.file.path);
-    }
-    req.session.message = {
-      message: "Title, type and price cannot empty",
-      type: "danger",
-    };
-    return res.redirect("/admin/add-book");
   }
 };
 
@@ -99,20 +94,19 @@ const PostAddCategory = async (req, res) => {
 
 const PostEditBook = async (req, res) => {
   const { title, price, type, synopsis } = req.body;
-  console.log(req.session.failed);
-
   try {
     const book = await Book.findById(req.params.id);
-
+    const result = "";
     if (req.session.failed) {
       return res.redirect(req.originalUrl);
     } else {
       if (req.file) {
         if (book.coverImg) {
-          if (fs.existsSync(book.coverImg)) {
-            fs.unlinkSync(book.coverImg);
-          }
+          imgCloud.uploader.destroy(book.coverId);
         }
+        result = await imgCloud.uploader.upload(req.file.path, {
+          folder: "uploads",
+        });
       }
 
       const bookData = {
@@ -120,9 +114,10 @@ const PostEditBook = async (req, res) => {
         price: price,
         type: type,
         synopsis: synopsis,
-        coverImg: req.file ? req.file.path : book.coverImg,
+        coverId: req.file ? result.public_id : "",
+        coverImg: req.file ? result.url : book.coverImg,
       };
-      await book.update(bookData, { useFindAndModify: false });
+      await book.updateOne(bookData, { useFindAndModify: false });
       req.session.message = {
         message: "Edit Book Success",
         type: "success",
@@ -137,14 +132,12 @@ const PostEditBook = async (req, res) => {
 const removeBook = async (req, res) => {
   try {
     const id = req.params.id;
-    const book = await Book.findById(req.params.id).select("coverImg");
+    const book = await Book.findById(req.params.id);
 
     if (book.coverImg) {
-      if (fs.existsSync(book.coverImg)) {
-        fs.unlinkSync(book.coverImg);
-      }
+      imgCloud.uploader.destroy(book.coverId);
     }
-    await Book.findByIdAndDelete(id);
+    await Book.deleteOne({ _id: id });
     req.session.message = {
       message: "Delete Book",
       type: "success",

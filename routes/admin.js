@@ -1,6 +1,7 @@
 const express = require("express");
 const Multer = require("../middleware/Multer");
 const Auth = require("../middleware/Auth");
+const Validate = require("../middleware/Validate");
 
 const {
   getBookAdmin,
@@ -24,7 +25,7 @@ router.get("/edit-book/:id", Auth, getEditBook);
 
 router.get("/category", Auth, getCategoryAdmin);
 
-router.post("/add-book", [Multer, Auth], PostAddBook);
+router.post("/add-book", [Multer, Auth, Validate], PostAddBook);
 
 router.post("/remove-book/:id", Auth, removeBook);
 
