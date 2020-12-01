@@ -36,13 +36,16 @@ const getCategoryAdmin = async (req, res) => {
 };
 
 const PostAddBook = async (req, res) => {
+  let result = "";
   try {
     if (req.session.failed) {
       return res.redirect(req.originalUrl);
     } else {
-      const result = await imgCloud.uploader.upload(req.file.path, {
-        folder: "uploads",
-      });
+      if (req.file) {
+        result = await imgCloud.uploader.upload(req.file.path, {
+          folder: "uploads",
+        });
+      }
 
       const { title, type, price, synopsis } = req.body;
 
@@ -54,7 +57,6 @@ const PostAddBook = async (req, res) => {
         coverId: req.file ? result.public_id : "",
         coverImg: req.file ? result.url : "",
       });
-
       await newBook.save();
       req.session.message = {
         message: "Added New Book",
